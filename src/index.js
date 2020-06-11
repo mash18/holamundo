@@ -1,6 +1,7 @@
 //importacion de modulos y librerias
 import React from 'react'
 import ReactDom from 'react-dom'
+import App from './components/App'
 
 //crear componente
 //componentes funcionales
@@ -14,25 +15,6 @@ function App(){
 */
 
 //componentes de clase
-class App extends React.Component{
-    constructor(){
-        super() //mandar a llamar el scope
-    }
-
-    render(){
-        return (
-            <div>
-                <h1>
-                    Hola
-                </h1>
-                <h2>
-                    Mundo
-                </h2>
-            </div>
-        )
-    }
-}
-
 
 //renderizado de componente
 ReactDom.render(
