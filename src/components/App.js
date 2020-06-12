@@ -1,30 +1,41 @@
 import React from 'react'
+import Faker from 'faker'
 
-import Regards from './Regards'
+import Comments from './comments'
+import Button from './button'
+
 class App extends React.Component{
     constructor(){
         super() //mandar a llamar el scope
-        this.state = {//declarar un estado
-            name: 'Fernando',  //declarado como string
-            last_name: 'Mendoza'
+        this.state = {
+            comments: []
         }
-        //this.ChangeState = this.changeState.bind(this) // ya no se necesita el bind por usar row function () =>
     }
 
-    changeState(objectName){
-        this.setState(objectName)
+    addComment(){
+        let comment = {
+            userAvatar: Faker.image.avatar(),
+            name: Faker.name.firstName(),
+            date: Date.now().toLocaleString(),
+            comment: Faker.lorem.paragraph()
+        }
+        this.setState({comments: comment})
     }
 
     render(){
         return (
             <div>
-                <Regards objectName={this.state}/>
-                <button onClick={() => this.changeState({name: 'Fernando',last_name: 'Mendoza'})}
-                >Fernando</button>
-                <button onClick={() => this.changeState({name: 'Manuel',last_name: 'Trujillo'})}
-                >Manuel</button>
-                <button onClick={() => this.changeState({name: 'Luis',last_name: 'Rosas'})}
-                >Luis</button>
+                <Button />
+                {
+                    this.state.comments.map((comment) => { 
+                        return <Comments 
+                            userAvatar={comment.userAvatar} 
+                            nate={comment.date}
+                            come={comment.name} 
+                            damment={comment.comment}
+                        />
+                    })
+                }
             </div>
         )
     }
