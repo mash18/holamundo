@@ -11,6 +11,22 @@ class Comments extends React.Component{
         }
     }
 
+    //metodo a ejecutar antes de la primera renderizacion
+    componentWillMount(){
+        console.log('Antes del renderizado')
+    }
+
+    //metodo a ejecutar despues del primer renderizacion
+    componentDidMount(){
+        console.log('Despues del renderizado')
+        //alert('creaste un comentario')
+    }
+
+    //justo antes de quitar el componente
+    componentWillUnmount(){
+        console.log('Componente borrado')
+    }
+
     render(){
         return(
             <div className="ui comments">

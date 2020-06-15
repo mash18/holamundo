@@ -10,6 +10,8 @@ class App extends React.Component{
         this.state = {
             comments: []
         }
+        this.addComment = this.addComment.bind(this)
+        this.deleteComment = this.deleteComment.bind(this)
     }
 
     addComment(){
@@ -19,20 +21,34 @@ class App extends React.Component{
             date: Date.now().toLocaleString(),
             comment: Faker.lorem.paragraph()
         }
-        this.setState({comments: comment})
+        //let copyState = {...this.state, comments: this.state.comments.push(commentM)}
+        let copyState = this.state.comments
+        copyState.push(comment)
+        this.setState({comments : copyState})
+    }
+
+    deleteComment(){
+    //    letcopyState={...this.state, comments:this.state.comments.pop()}
+    //    this.setState([copyState])
+    //}
+        let copyState = this.state.comments
+        copyState.pop()
+        this.setState({comments : copyState})
     }
 
     render(){
         return (
             <div>
-                <Button />
+                <Button func={this.addComment} text={'Comentar'}/>
+                <Button func={this.deleteComment} text={'Borrar'}/>
                 {
                     this.state.comments.map((comment) => { 
-                        return <Comments 
+                        return <Comments
+                            key={comment.name}
                             userAvatar={comment.userAvatar} 
-                            nate={comment.date}
-                            come={comment.name} 
-                            damment={comment.comment}
+                            name={comment.name}
+                            date={comment.date} 
+                            comment={comment.comment}
                         />
                     })
                 }
