@@ -3,13 +3,16 @@ import Faker from 'faker'
 
 import Comments from './comments'
 import Button from './button'
+import InputComment from './inputComment'
 
 class App extends React.Component{
     constructor(){
-        super() //mandar a llamar el scope
+        super()
         this.state = {
-            comments: []
+            comments: [],
+            commentText: ''
         }
+
         this.addComment = this.addComment.bind(this)
         this.deleteComment = this.deleteComment.bind(this)
     }
@@ -19,35 +22,40 @@ class App extends React.Component{
             userAvatar: Faker.image.avatar(),
             name: Faker.name.firstName(),
             date: Date.now().toLocaleString(),
-            comment: Faker.lorem.paragraph()
+            comment: this.state.commentText
         }
-        //let copyState = {...this.state, comments: this.state.comments.push(commentM)}
-        let copyState = this.state.comments
-        copyState.push(comment)
-        this.setState({comments : copyState})
+        let copyComments = this.state.comments
+        copyComments.push(comment)
+        let copyState = {...this.state, comments: copyComments}
+        this.setState(copyState)
+        this.setState({commentText: ''})
+        // copyState.push(comment)
+        // this.setState({comments: copyState})
+    }
+    deleteComment(){
+        let copyComments = this.state.comments
+        copyComments.pop()
+        let copyState = {...this.state.comments, comments: copyComments}
+        this.setState(copyState)
     }
 
-    deleteComment(){
-    //    letcopyState={...this.state, comments:this.state.comments.pop()}
-    //    this.setState([copyState])
-    //}
-        let copyState = this.state.comments
-        copyState.pop()
-        this.setState({comments : copyState})
+    handlerComment(e){
+        this.setState({commentText: e.target.value})
     }
 
     render(){
         return (
             <div>
+                <InputComment handler={(e) => this.handlerComment(e)} value={this.state.commentText}></InputComment>
                 <Button func={this.addComment} text={'Comentar'}/>
                 <Button func={this.deleteComment} text={'Borrar'}/>
                 {
                     this.state.comments.map((comment) => { 
-                        return <Comments
-                            key={comment.name}
+                        return <Comments 
+                            key={`comment_${comment.name}_${Date.now()}`}
                             userAvatar={comment.userAvatar} 
-                            name={comment.name}
-                            date={comment.date} 
+                            name={comment.name} 
+                            date={comment.date}
                             comment={comment.comment}
                         />
                     })
@@ -56,4 +64,4 @@ class App extends React.Component{
         )
     }
 }
-export default App //2da forma de exportar
+export default App

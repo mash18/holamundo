@@ -22,6 +22,20 @@ class Comments extends React.Component{
         //alert('creaste un comentario')
     }
 
+    componentWillReceiveProps(nextProps){
+        console.log('Recibe props',nextProps)
+    }
+
+    //antes que el componente se vaya a actualizar, recibe 2 paramatros: las props nuevas y el state que vamos a cambiar
+    componentWillUpdate(nextProps,nextState){
+        console.log('componente se va a actualizar',nextProps,nextState)
+    }
+
+    //se activa justo despues de actualizar el componente, obtiene lo que ya se actualizo
+    componentDidUpdate(prevProps,prevState){
+        console.log('componente actualizado',prevProps,prevState)
+    }
+
     //justo antes de quitar el componente
     componentWillUnmount(){
         console.log('Componente borrado')

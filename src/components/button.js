@@ -8,7 +8,7 @@ class Button extends React.Component{
     render(){
         return (
             <button onClick={this.props.func} class="ui primary button">
-                {this.props.text}}
+                {this.props.text}
             </button>
         )
     }
